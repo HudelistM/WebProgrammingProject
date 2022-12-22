@@ -1,0 +1,34 @@
+{% extends 'pocetna.html' %}
+
+{% block content %}
+
+<div class="column">
+
+{% for profil in profili %}
+
+    <div class="block">
+      <div class="card">
+        <a href="{% url 'drustvena_mrezaApp:profil' profil.id %}">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+              </div>
+              <div class="media-content">
+                <p class="title is-4">
+                  {{ profil.user.username }}
+                </p>
+                <p class="subtitle is-6">
+                  @{{ profil.user.username|lower }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+{% endfor %}
+
+</div>
+
+{% endblock content %}

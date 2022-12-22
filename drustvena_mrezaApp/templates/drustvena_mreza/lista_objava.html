@@ -1,0 +1,37 @@
+{% extends 'pocetna.html' %}
+
+{% block content %}
+
+<div class="column">
+
+{% for objava in objave %}
+
+    <div class="block">
+      <div class="card">
+        <a href="#">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+              </div>
+              <div class="media-content">
+                <p class="title is-4">
+                  {{ objava.user }}
+                </p>
+                <p class="subtitle is-6">
+                  {{ objava.sadrzaj }}
+                </p>
+                <p class="subtitle is-6">
+                  {{ objava.datum_objave }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+{% endfor %}
+
+</div>
+
+{% endblock content %}

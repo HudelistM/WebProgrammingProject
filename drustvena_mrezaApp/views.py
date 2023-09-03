@@ -2,9 +2,12 @@ from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from django.conf import settings
 from .models import Profil,Objava
-from .forms import RegisterForm
+from .forms import RegisterForm,PostForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.http import HttpResponseForbidden
+from django.shortcuts import get_object_or_404
+
 
 User=get_user_model()
 # Create your views here.
@@ -36,11 +39,47 @@ def homepage(request):
     profil = Profil.objects.get(user=user)
     following_users = profil.follows.all()
     posts = Objava.objects.filter(user__in=following_users).order_by('-datum_objave')
-    return render(request, 'drustvena_mreza/homepage.html', {'posts': posts})
+    return render(request, 'pocetna.html', {'posts': posts})
 
 def moj_profil(request):
     user = request.user
     profil = Profil.objects.get(user=user)
-    following_users = profil.follows.all()
     posts = Objava.objects.filter(user=user).order_by('-datum_objave')
-    return render(request, 'drustvena_mreza/moj_profil.html', {'following_users': following_users, 'posts': posts})
+
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            new_post = form.save(commit=False)
+            new_post.user = request.user
+            new_post.save()
+            return redirect('drustvena_mrezaApp:moj_profil')
+    else:
+        form = PostForm()
+
+    return render(request, 'drustvena_mreza/moj_profil.html', {'following_users': profil.follows.all(), 'posts': posts, 'form': form})
+
+def edit_post(request, pk):
+    post = get_object_or_404(Objava, pk=pk)
+    if request.user != post.user:
+        return HttpResponseForbidden("Nemate dozvolu za uređivanje ove objave.")
+    
+    if request.method == 'POST':
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('moj_profil')
+    else:
+        form = PostForm(instance=post)
+    
+    return render(request, 'edit_post.html', {'form': form})
+
+def delete_post(request, pk):
+    post = get_object_or_404(Objava, pk=pk)
+    if request.user != post.user:
+        return HttpResponseForbidden("Nemate dozvolu za brisanje ove objave.")
+    
+    if request.method == 'POST':
+        post.delete()
+        return redirect('moj_profil')
+    
+    return render(request, 'confirm_delete.html')

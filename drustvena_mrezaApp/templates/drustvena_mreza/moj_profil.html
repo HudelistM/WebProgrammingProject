@@ -1,22 +1,50 @@
-{% extends 'drustvena_mrezaApp/pocetna.html' %}
+{% extends 'pocetna.html' %}
 
 {% block content %}
-<h2>Following</h2>
+<h2 style="color:white;">Following</h2>
 {% for user in following_users %}
 <div class="user">
-    <h3>{{ user.username }}</h3>
+    <h3 style="color:white;">{{ user.username }}</h3>
 </div>
 {% empty %}
-<p>You're not following anyone yet.</p>
+<p style="color:white;">You're not following anyone yet.</p>
 {% endfor %}
 
-<h2>My Posts</h2>
+<h2 style="color:white;">My Posts</h2>
 {% for post in posts %}
 <div class="post">
-    <h2>{{ post.sadrzaj }}</h2>
-    <p><small>{{ post.datum_objave }}</small></p>
+    <h2 style="color:white;">{{ post.sadrzaj }}</h2>
+    <p style="color:white;"><small>{{ post.datum_objave }}</small></p>
+    <!-- Edit and Delete icons -->
+    {% if user == post.user %}
+    <a href="{% url 'edit_post' post.id %}"><i class="fas fa-edit"></i></a>
+    <a href="{% url 'delete_post' post.id %}"><i class="fas fa-trash-alt"></i></a>
+    {% endif %}
 </div>
 {% empty %}
-<p>You haven't made any posts yet.</p>
+<p style="color:white;">You haven't made any posts yet.</p>
 {% endfor %}
+
+<!-- Button to trigger the form -->
+<button id="new-post-button" style="color:white; background-color:blue;">New Post</button>
+
+<!-- Form for new post -->
+<div id="new-post-form" style="display:none;">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+</div>
+<!-- Script to toggle form visibility -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        console.log("Document is ready");
+        document.getElementById("new-post-button").addEventListener("click", function () {
+            console.log("Button clicked");
+            var form = document.getElementById("new-post-form");
+            form.style.display = form.style.display === "none" ? "block" : "none";
+        });
+    });
+</script>
 {% endblock %}

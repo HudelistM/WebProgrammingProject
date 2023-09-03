@@ -1,0 +1,10 @@
+{% extends 'pocetna.html' %}
+
+{% block content %}
+<h2>Uredi objavu</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Spremi promjene</button>
+</form>
+{% endblock %}

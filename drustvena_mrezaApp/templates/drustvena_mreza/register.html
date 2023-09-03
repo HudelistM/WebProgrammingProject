@@ -1,0 +1,17 @@
+{% extends "pocetna.html" %}
+{% block content %}
+<div class="card">
+    <header class="card-header">
+        <p class="card-header-title">Registracija</p>
+    </header>
+    <div class="card-content">
+        <div class="content">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="button is-info" type="submit">Registriraj se</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

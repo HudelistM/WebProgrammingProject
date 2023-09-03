@@ -1,34 +1,56 @@
 <!DOCTYPE html>
-<html lang="en" class="has-background-dark"></html>
+<html lang="en" class="has-background-dark">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Include the Bulma CSS framework for styling -->
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <title>DrustvenaMreza</title>
 </head>
+
 <body>
-    <section class="hero is-small is-info mb-6">
-        <div class="hero-body">
-            <h1 class="title is-1">DrustvenaMreza</h1>
-            </p>
+    <nav class="navbar is-info" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/">
+                <h1 class="title is-1 has-text-white">DrustvenaMreza</h1>
+            </a>
+        </div>
+
+        <div class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href="{% url 'drustvena_mrezaApp:homepage' %}">
+                    Naslovna
+                </a>
+                <a class="navbar-item" href="{% url 'drustvena_mrezaApp:moj_profil' %}">
+                    Moj profil
+                </a>
+            </div>
+            <div class="navbar-end">
+                <a class="navbar-item" href="{% url 'drustvena_mrezaApp:login' %}">
+                    Prijava
+                </a>
+                <a class="navbar-item" href="{% url 'drustvena_mrezaApp:register' %}">
+                    Registracija
+                </a>
+                <a class="navbar-item" href="{% url 'drustvena_mrezaApp:logout' %}">
+                    Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-8">
+                    {% block content %}
+
+                    {% endblock content %}
+                </div>
+            </div>
         </div>
     </section>
-    <!--Ovo pretvoriti u navbar-->
-    <ul class="content is-medium has-text-white">
-        <li><a href="/lista_profila">Lista profila</a></li>
-        <li><a href="/lista_objava">Lista objava</a></li>
-    </ul>
-    <div class="container">
-        <div class="columns">
-
-            {% block content %}
-
-            {% endblock content %}
-
-        </div>
-    </div>
 </body>
+
 </html>

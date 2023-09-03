@@ -1,0 +1,22 @@
+{% extends 'drustvena_mrezaApp/pocetna.html' %}
+
+{% block content %}
+<h2>Following</h2>
+{% for user in following_users %}
+<div class="user">
+    <h3>{{ user.username }}</h3>
+</div>
+{% empty %}
+<p>You're not following anyone yet.</p>
+{% endfor %}
+
+<h2>My Posts</h2>
+{% for post in posts %}
+<div class="post">
+    <h2>{{ post.sadrzaj }}</h2>
+    <p><small>{{ post.datum_objave }}</small></p>
+</div>
+{% empty %}
+<p>You haven't made any posts yet.</p>
+{% endfor %}
+{% endblock %}

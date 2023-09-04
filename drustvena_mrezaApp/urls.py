@@ -23,4 +23,7 @@ urlpatterns = [
     path('edit_post/<int:pk>/', views.edit_post, name='edit_post'),
     path('delete_post/<int:pk>/', views.delete_post, name='delete_post'),
     path('logout/', views.custom_logout, name='logout'),
+    path('follow/<int:pk>/', views.follow, name='follow'),
+    path('unfollow/<int:pk>/', views.unfollow, name='unfollow'),
+    path('search/', views.search, name='search'),
 ]

@@ -10,6 +10,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth import logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.db.models import Q
 
 
 User=get_user_model()
@@ -93,3 +94,23 @@ def delete_post(request, pk):
 def custom_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('drustvena_mrezaApp:pocetna'))
+
+def follow(request, pk):
+    user_to_follow = get_object_or_404(Profil, pk=pk)
+    current_user_profile = Profil.objects.get(user=request.user)
+    current_user_profile.follows.add(user_to_follow)
+    return redirect('drustvena_mrezaApp:profil', pk=pk)
+
+def unfollow(request, pk):
+    user_to_unfollow = get_object_or_404(Profil, pk=pk)
+    current_user_profile = Profil.objects.get(user=request.user)
+    current_user_profile.follows.remove(user_to_unfollow)
+    return redirect('drustvena_mrezaApp:profil', pk=pk)
+
+def search(request):
+    query = request.GET.get('q')
+    if query:
+        results = Profil.objects.filter(Q(user__username__icontains=query))
+    else:
+        results = Profil.objects.none()
+    return render(request, 'drustvena_mreza/search_results.html', {'results': results})

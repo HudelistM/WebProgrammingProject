@@ -41,7 +41,7 @@
                 </div>
                 {% if user.is_authenticated %}
                 <p class="navbar-item">Hello, {{ user.username }}!</p>
-                <a class="navbar-item" href="{% url 'logout' %}">
+                <a class="navbar-item" href="{% url 'drustvena_mrezaApp:logout' %}">
                     Logout
                 </a>
                 {% else %}

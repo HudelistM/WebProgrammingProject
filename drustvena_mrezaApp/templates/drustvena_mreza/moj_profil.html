@@ -1,29 +1,37 @@
 {% extends 'pocetna.html' %}
 
 {% block content %}
-<h2 style="color:white;">Following</h2>
-{% for user in following_users %}
-<div class="user">
-    <h3 style="color:white;">{{ user.username }}</h3>
-</div>
-{% empty %}
-<p style="color:white;">You're not following anyone yet.</p>
-{% endfor %}
+<div class="columns">
+    <div class="column is-two-thirds">
+        <h2 style="color:white;">My Posts</h2>
+        <div class="content">
+            {% for post in posts %}
+            <div class="box">
+                {{ post.sadrzaj }}
+                <span class="is-small has-text-grey-light">
+                    ({{ post.datum_objave }})
+                </span>
+                <!-- Edit and Delete icons -->
+                {% if user == post.user %}
+                <a href="{% url 'drustvena_mrezaApp:edit_post' post.id %}"><i class="fas fa-edit"></i></a>
+                <a href="{% url 'drustvena_mrezaApp:delete_post' post.id %}"><i class="fas fa-trash-alt"></i></a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 
-<h2 style="color:white;">My Posts</h2>
-{% for post in posts %}
-<div class="post">
-    <h2 style="color:white;">{{ post.sadrzaj }}</h2>
-    <p style="color:white;"><small>{{ post.datum_objave }}</small></p>
-    <!-- Edit and Delete icons -->
-    {% if user == post.user %}
-    <a href="{% url 'drustvena_mrezaApp:edit_post' post.id %}"><i class="fas fa-edit"></i></a>
-    <a href="{% url 'drustvena_mrezaApp:delete_post' post.id %}"><i class="fas fa-trash-alt"></i></a>
-    {% endif %}
+    <div class="column is-one-third">
+        <h2 style="color:white;">Following</h2>
+        {% for user in following_users %}
+        <div class="user">
+            <h3 style="color:white;">{{ user.username }}</h3>
+        </div>
+        {% empty %}
+        <p style="color:white;">You're not following anyone yet.</p>
+        {% endfor %}
+    </div>
 </div>
-{% empty %}
-<p style="color:white;">You haven't made any posts yet.</p>
-{% endfor %}
 
 <!-- Button to trigger the form -->
 <button id="new-post-button" style="color:white; background-color:blue;">New Post</button>

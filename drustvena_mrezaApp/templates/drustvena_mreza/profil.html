@@ -1,40 +1,46 @@
 {% extends 'pocetna.html' %}
 
 {% block content %}
-
-<div class="column">
-
-    <div class="block">
-    <h1 class="title is-1 has-text-white">
-        Objave od {{profil.user.username|upper}}
-    </h1>
-    </div>
-    <div class="content">
-        {% for objava in profil.user.objave.all %}
+<div class="columns">
+    <div class="column is-two-thirds">
+        <div class="block">
+            <h1 class="title is-1 has-text-white">
+                Objave od {{profil.user.username|upper}}
+            </h1>
+            <!-- Follow/Unfollow Button -->
+            <button id="follow-button">
+                {% if is_following %}
+                Unfollow
+                {% else %}
+                Follow
+                {% endif %}
+            </button>
+        </div>
+        <div class="content">
+            {% for objava in profil.user.objave.all %}
             <div class="box">
                 {{ objava.sadrzaj }}
                 <span class="is-small has-text-grey-light">
                     ({{ objava.datum_objave }})
                 </span>
             </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="column is-one-third">
+        <!--Ovo ne ispisuje trenutno nist, treba dodati funkcionalnost-->
+        <div class="block">
+            <h3 class="title is-4 has-text-white">
+                {{profil.user.username}} prati:
+            </h3>
+        </div>
+
+        <div class="block">
+            <h3 class="title is-4 has-text-white">
+                Pratitelji od {{profil.user.username}}:
+            </h3>
+        </div>
     </div>
 </div>
-
-<div class="column is-one-third">
-<!--Ovo ne ispisuje trenutno nist, treba dodati funkcionalnost-->
-    <div class="block">
-        <h3 class="title is-4 has-text-white">
-            {{profil.user.username}} prati:
-        </h3>
-    </div>
-
-    <div class="block">
-        <h3 class="title is-4 has-text-white">
-            Pratitelji od {{profil.user.username}}:
-        </h3>
-    </div>
-
-</div>
-
 {% endblock content %}

@@ -30,16 +30,14 @@
                 {% if user.is_authenticated %}
                 <p class="navbar-item">Hello, {{ user.username }}!</p>
                 <a class="navbar-item" href="{% url 'drustvena_mrezaApp:logout' %}">
-                    Logout
-                </a>
-                {% else %}
-                <a class="navbar-item" href="{% url 'drustvena_mrezaApp:login' %}">
-                    Prijava
-                </a>
-                <a class="navbar-item" href="{% url 'drustvena_mrezaApp:register' %}">
-                    Registracija
-                </a>
-                {% endif %}
+                    {% else %}
+                    <a class="navbar-item" href="{% url 'drustvena_mrezaApp:login' %}">
+                        Prijava
+                    </a>
+                    <a class="navbar-item" href="{% url 'drustvena_mrezaApp:register' %}">
+                        Registracija
+                    </a>
+                    {% endif %}
             </div>
         </div>
     </nav>

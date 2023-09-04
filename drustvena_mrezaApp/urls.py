@@ -18,7 +18,6 @@ urlpatterns = [
     path("profil/<int:pk>", profil, name="profil"),
     path("register/", app_views.register, name="register"),
     path("login/", auth_views.LoginView.as_view(template_name="drustvena_mreza/login.html"), name="login"),
-    path("logout/", auth_views.LogoutView.as_view(template_name="drustvena_mreza/logout.html"), name="logout"),
     path('homepage/', views.homepage, name='homepage'),
     path('moj_profil/', views.moj_profil, name='moj_profil'),
     path('edit_post/<int:pk>/', views.edit_post, name='edit_post'),

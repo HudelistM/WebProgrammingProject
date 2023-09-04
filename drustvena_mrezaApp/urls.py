@@ -4,6 +4,8 @@ from django.contrib.auth import views as auth_views
 from . import views as app_views
 from . import views
 from django.contrib.auth import get_user_model
+from django.urls import reverse_lazy
+
 
 User = get_user_model()
 
@@ -21,4 +23,5 @@ urlpatterns = [
     path('moj_profil/', views.moj_profil, name='moj_profil'),
     path('edit_post/<int:pk>/', views.edit_post, name='edit_post'),
     path('delete_post/<int:pk>/', views.delete_post, name='delete_post'),
+    path('logout/', views.custom_logout, name='logout'),
 ]

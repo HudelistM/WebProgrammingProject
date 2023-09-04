@@ -17,8 +17,8 @@
     <p style="color:white;"><small>{{ post.datum_objave }}</small></p>
     <!-- Edit and Delete icons -->
     {% if user == post.user %}
-    <a href="{% url 'edit_post' post.id %}"><i class="fas fa-edit"></i></a>
-    <a href="{% url 'delete_post' post.id %}"><i class="fas fa-trash-alt"></i></a>
+    <a href="{% url 'drustvena_mrezaApp:edit_post' post.id %}"><i class="fas fa-edit"></i></a>
+    <a href="{% url 'drustvena_mrezaApp:delete_post' post.id %}"><i class="fas fa-trash-alt"></i></a>
     {% endif %}
 </div>
 {% empty %}

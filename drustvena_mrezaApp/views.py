@@ -67,11 +67,11 @@ def edit_post(request, pk):
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
             form.save()
-            return redirect('moj_profil')
+            return redirect('drustvena_mrezaApp:moj_profil')
     else:
         form = PostForm(instance=post)
     
-    return render(request, 'edit_post.html', {'form': form})
+    return render(request, 'drustvena_mreza/edit_post.html', {'form': form})
 
 def delete_post(request, pk):
     post = get_object_or_404(Objava, pk=pk)
@@ -80,6 +80,6 @@ def delete_post(request, pk):
     
     if request.method == 'POST':
         post.delete()
-        return redirect('moj_profil')
+        return redirect('drustvena_mrezaApp:moj_profil')
     
-    return render(request, 'confirm_delete.html')
+    return render(request, 'drustvena_mreza/delete_post.html')

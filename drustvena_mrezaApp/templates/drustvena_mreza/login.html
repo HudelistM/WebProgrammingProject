@@ -1,17 +1,33 @@
 {% extends "pocetna.html" %}
 {% block content %}
-<div class="card">
-    <header class="card-header">
-        <p class="card-header-title">Prijava</p>
+<div class="card has-background-dark" style="border: 2px solid cyan; border-radius: 15px;">
+    <header class="card-header" style="border: 2px solid cyan; border-radius: 15px;">
+        <p class="card-header-title has-text-white">Prijava</p>
     </header>
     <div class="card-content">
         <div class="content">
             <form method="post">
                 {% csrf_token %}
-                {{ form.as_p }}
+                <!-- Username field -->
+                <div class="field">
+                    <label class="label has-text-white">Username</label>
+                    <div class="control">
+                        <input class="input is-info" type="text" name="{{ form.username.name }}"
+                            id="{{ form.username.id }}" placeholder="Username">
+                    </div>
+                </div>
+                <!-- Password field -->
+                <div class="field">
+                    <label class="label has-text-white">Password</label>
+                    <div class="control">
+                        <input class="input is-info" type="password" name="{{ form.password.name }}"
+                            id="{{ form.password.id }}" placeholder="Password">
+                    </div>
+                </div>
                 <button class="button is-info" type="submit">Prijavi se</button>
             </form>
-            <p>Ako nemate racun, <a href="{% url 'drustvena_mrezaApp:register' %}">registrirajte se ovdje</a>.</p>
+            <p class="has-text-white">Ako nemate racun, <a class="has-text-info"
+                    href="{% url 'drustvena_mrezaApp:register' %}">registrirajte se ovdje</a>.</p>
         </div>
     </div>
 </div>

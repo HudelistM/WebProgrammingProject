@@ -1,14 +1,45 @@
 {% extends "pocetna.html" %}
 {% block content %}
-<div class="card">
-    <header class="card-header">
-        <p class="card-header-title">Registracija</p>
+<div class="card has-background-dark" style="border: 2px solid cyan; border-radius: 15px;">
+    <header class="card-header" style="border: 2px solid cyan; border-radius: 15px;">
+        <p class="card-header-title has-text-white">Registracija</p>
     </header>
     <div class="card-content">
         <div class="content">
             <form method="post">
                 {% csrf_token %}
-                {{ form.as_p }}
+                <!-- Username field -->
+                <div class="field">
+                    <label class="label has-text-white">Username</label>
+                    <div class="control">
+                        <input class="input is-info" type="text" name="{{ form.username.name }}"
+                            id="{{ form.username.id }}" placeholder="Username">
+                    </div>
+                </div>
+                <!-- Email field -->
+                <div class="field">
+                    <label class="label has-text-white">Email</label>
+                    <div class="control">
+                        <input class="input is-info" type="email" name="{{ form.email.name }}" id="{{ form.email.id }}"
+                            placeholder="Email">
+                    </div>
+                </div>
+                <!-- Password field -->
+                <div class="field">
+                    <label class="label has-text-white">Password</label>
+                    <div class="control">
+                        <input class="input is-info" type="password" name="{{ form.password1.name }}"
+                            id="{{ form.password1.id }}" placeholder="Password">
+                    </div>
+                </div>
+                <!-- Confirm Password field -->
+                <div class="field">
+                    <label class="label has-text-white">Confirm Password</label>
+                    <div class="control">
+                        <input class="input is-info" type="password" name="{{ form.password2.name }}"
+                            id="{{ form.password2.id }}" placeholder="Confirm Password">
+                    </div>
+                </div>
                 <button class="button is-info" type="submit">Registriraj se</button>
             </form>
         </div>

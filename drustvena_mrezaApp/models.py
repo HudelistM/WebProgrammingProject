@@ -10,9 +10,10 @@ class Profil(models.Model):
     follows = models.ManyToManyField(
         "self",
         related_name="followed_by",
+        related_query_name="followers",
         symmetrical=False,
         blank=True
-    )
+)   
     def __str__(self):
         return self.user.username
 

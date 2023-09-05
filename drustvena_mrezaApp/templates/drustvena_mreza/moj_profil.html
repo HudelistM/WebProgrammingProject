@@ -3,7 +3,7 @@
 {% block content %}
 <div class="columns">
     <div class="column is-two-thirds">
-        <h2 style="color:white;">My Posts</h2>
+        <h2 style="color:white;">Moje objave</h2>
         <div class="content">
             {% for post in posts %}
             <div class="box">
@@ -22,26 +22,44 @@
     </div>
 
     <div class="column is-one-third">
-        <h2 style="color:white;">Following</h2>
+        <h2 style="color:white;">Pratim</h2>
         {% for user in following_users %}
         <div class="user">
             <h3 style="color:white;">{{ user.username }}</h3>
         </div>
         {% empty %}
-        <p style="color:white;">You're not following anyone yet.</p>
+        <p style="color:white;">Ne pratite nikoga.</p>
         {% endfor %}
     </div>
 </div>
 
 <!-- Button to trigger the form -->
-<button id="new-post-button" style="color:white; background-color:blue;">New Post</button>
+<button id="new-post-button" class="button is-info is-outlined">New Post</button>
 
 <!-- Form for new post -->
-<div id="new-post-form" style="display:none;">
+<div id="new-post-form" class="box has-background-dark" style="display:none;">
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
+        <div class="field">
+            <label class="label has-text-white">Content</label>
+            <div class="control">
+                <textarea class="textarea has-fixed-size has-background-grey-darker has-text-white"
+                    name="{{ form.sadrzaj.name }}" rows="4"></textarea>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label has-text-white">Privacy</label>
+            <div class="control">
+                {{ form.privacy }}
+            </div>
+        </div>
+        <div class="field">
+            <label class="label has-text-white">Category</label>
+            <div class="control">
+                {{ form.category }}
+            </div>
+        </div>
+        <button type="submit" class="button is-info">Submit</button>
     </form>
 </div>
 <!-- Script to toggle form visibility -->

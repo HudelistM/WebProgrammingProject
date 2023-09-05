@@ -31,10 +31,10 @@
                     <form action="{% url 'drustvena_mrezaApp:search' %}" method="get">
                         <div class="field has-addons">
                             <div class="control">
-                                <input class="input" type="text" name="q" placeholder="Search users...">
+                                <input class="input" type="text" name="q" placeholder="Pretraga">
                             </div>
                             <div class="control">
-                                <button type="submit" class="button is-info">Search</button>
+                                <button type="submit" class="button is-light">Pretrazi</button>
                             </div>
                         </div>
                     </form>
@@ -42,7 +42,7 @@
                 {% if user.is_authenticated %}
                 <p class="navbar-item">Hello, {{ user.username }}!</p>
                 <a class="navbar-item" href="{% url 'drustvena_mrezaApp:logout' %}">
-                    Logout
+                    Odjava
                 </a>
                 {% else %}
                 <a class="navbar-item" href="{% url 'drustvena_mrezaApp:login' %}">
@@ -62,10 +62,12 @@
                 <div class="column is-8">
                     {% block content %}
                     {% for post in posts %}
-                    <div class="post">
-                        <h2>{{ post.user }}</h2>
+                    <div class="box">
+                        <h2>{{ post.user.username }}</h2>
                         <p>{{ post.sadrzaj }}</p>
-                        <p><small>{{ post.datum_objave }}</small></p>
+                        <span class="is-small has-text-grey-light">
+                            ({{ post.datum_objave }})
+                        </span>
                     </div>
                     {% empty %}
                     <p>No posts yet.</p>

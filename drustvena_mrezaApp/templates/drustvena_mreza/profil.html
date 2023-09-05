@@ -8,13 +8,17 @@
                 Objave od {{profil.user.username|upper}}
             </h1>
             <!-- Follow/Unfollow Button -->
-            <button id="follow-button">
-                {% if is_following %}
-                Unfollow
-                {% else %}
-                Follow
-                {% endif %}
-            </button>
+            <form method="post"
+                action="{% if is_following %}{% url 'drustvena_mrezaApp:unfollow' profil.pk %}{% else %}{% url 'drustvena_mrezaApp:follow' profil.pk %}{% endif %}">
+                {% csrf_token %}
+                <button type="submit" id="follow-button" class="button is-info">
+                    {% if is_following %}
+                    Odprati
+                    {% else %}
+                    Zaprati
+                    {% endif %}
+                </button>
+            </form>
         </div>
         <div class="content">
             {% for objava in profil.user.objave.all %}
@@ -28,18 +32,35 @@
         </div>
     </div>
 
-    <div class="column is-one-third">
-        <!--Ovo ne ispisuje trenutno nist, treba dodati funkcionalnost-->
+    <div class="column">
         <div class="block">
             <h3 class="title is-4 has-text-white">
                 {{profil.user.username}} prati:
             </h3>
+            <div class="list is-hoverable">
+                {% for profil in following_users %}
+                <a class="list-item has-text-white">
+                    {{ profil.user.username }}
+                </a>
+                {% empty %}
+                <a class="list-item has-text-white">Not following anyone yet.</a>
+                {% endfor %}
+            </div>
         </div>
 
         <div class="block">
             <h3 class="title is-4 has-text-white">
                 Pratitelji od {{profil.user.username}}:
             </h3>
+            <div class="list is-hoverable">
+                {% for profil in followed_by_users %}
+                <a class="list-item has-text-white">
+                    {{ profil.user.username }}
+                </a>
+                {% empty %}
+                <a class="list-item has-text-white">No followers yet.</a>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>

@@ -32,10 +32,9 @@ class Objava(models.Model):
     ]
 
     CATEGORY_CHOICES = [
-        ('tech', 'Technology'),
-        ('sports', 'Sports'),
-        ('entertainment', 'Entertainment'),
-        # Add more categories as needed
+        ('tech', 'Tehnologija'),
+        ('sport', 'Sport'),
+        ('zabava', 'Zabava'),
     ]
 
     user = models.ForeignKey(

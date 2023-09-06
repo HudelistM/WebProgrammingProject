@@ -45,7 +45,10 @@ def custom_logout(request):
 def search(request):
     query = request.GET.get('q')
     if query:
-        results = Profil.objects.filter(Q(user__username__icontains=query))
+        profile_results = Profil.objects.filter(Q(user__username__icontains=query))
+        post_results = Objava.objects.filter(Q(category__icontains=query))
     else:
-        results = Profil.objects.none()
-    return render(request, 'drustvena_mreza/search_results.html', {'results': results})
+        profile_results = Profil.objects.none()
+        post_results = Objava.objects.none()
+
+    return render(request, 'drustvena_mreza/search_results.html', {'profile_results': profile_results, 'post_results': post_results})
